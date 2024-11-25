@@ -22,7 +22,7 @@ def __(prompt_library_module):
 def __(llm_module):
     llm_o1_mini, llm_o1_preview = llm_module.build_o1_series()
     llm_gpt_4o_latest, llm_gpt_4o_mini = llm_module.build_openai_latest_and_fastest()
-    # llm_sonnet = llm_module.build_sonnet_3_5()
+    llm_sonnet = llm_module.build_sonnet_3_5()
     # gemini_1_5_pro, gemini_1_5_flash = llm_module.build_gemini_duo()
 
     models = {
@@ -30,7 +30,7 @@ def __(llm_module):
         "o1-preview": llm_o1_preview,
         "gpt-4o-latest": llm_gpt_4o_latest,
         "gpt-4o-mini": llm_gpt_4o_mini,
-        # "sonnet-3.5": llm_sonnet,
+        "sonnet-3.5": llm_sonnet,
         # "gemini-1-5-pro": gemini_1_5_pro,
         # "gemini-1-5-flash": gemini_1_5_flash,
     }
