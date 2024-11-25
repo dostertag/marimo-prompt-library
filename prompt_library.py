@@ -102,6 +102,40 @@ def __(form, map_prompt_library, mo, prompt_styles):
     return selected_prompt, selected_prompt_name
 
 
+# @app.cell
+# def __(mo, re, selected_prompt, selected_prompt_name):
+#     mo.stop(not selected_prompt_name or not selected_prompt, "")
+
+#     # Extract placeholders from the prompt
+#     placeholders = re.findall(r"\{\{(.*?)\}\}", selected_prompt)
+#     placeholders = list(set(placeholders))  # Remove duplicates
+
+#     # Create text areas for placeholders, using the placeholder text as the label
+#     placeholder_inputs = [
+#         mo.ui.text_area(label=ph, placeholder=f"Enter {ph}", full_width=True)
+#         for ph in placeholders
+#     ]
+
+#     # Create an array of placeholder inputs
+#     placeholder_array = mo.ui.array(
+#         placeholder_inputs,
+#         label="Fill in the Placeholders",
+#     )
+
+#     # Create a 'Proceed' button
+#     proceed_button = mo.ui.run_button(label="Prompt")
+
+#     # Display the placeholders and the 'Proceed' button in a vertical stack
+#     vstack = mo.vstack([mo.md("# Prompt Variables"), placeholder_array, proceed_button])
+#     vstack
+#     return (
+#         placeholder_array,
+#         placeholder_inputs,
+#         placeholders,
+#         proceed_button,
+#         vstack,
+#     )
+
 @app.cell
 def __(mo, re, selected_prompt, selected_prompt_name):
     mo.stop(not selected_prompt_name or not selected_prompt, "")
@@ -110,11 +144,39 @@ def __(mo, re, selected_prompt, selected_prompt_name):
     placeholders = re.findall(r"\{\{(.*?)\}\}", selected_prompt)
     placeholders = list(set(placeholders))  # Remove duplicates
 
-    # Create text areas for placeholders, using the placeholder text as the label
-    placeholder_inputs = [
-        mo.ui.text_area(label=ph, placeholder=f"Enter {ph}", full_width=True)
-        for ph in placeholders
-    ]
+    placeholder_inputs = []
+
+    # Check if the selected prompt is 'personality-traits.xml'
+    if selected_prompt_name == 'personality-traits.xml':
+        for ph in placeholders:
+            if ph == 'TEXT_CONTENT':
+                # Read from file
+                with open('./data/all_highlights.txt', 'r', encoding='utf-8') as f:
+                    lines = f.readlines()
+                # Get first N lines (e.g., N=10)
+                N = 10
+                sample_text = ''.join(lines[:N])
+                # Create text area with default value
+                input_widget = mo.ui.text_area(
+                    label=ph,
+                    placeholder=f"Enter {ph}",
+                    value=sample_text,
+                    full_width=True
+                )
+            else:
+                # Create empty text area for other placeholders
+                input_widget = mo.ui.text_area(
+                    label=ph,
+                    placeholder=f"Enter {ph}",
+                    full_width=True
+                )
+            placeholder_inputs.append(input_widget)
+    else:
+        # For other prompts, create empty text areas
+        placeholder_inputs = [
+            mo.ui.text_area(label=ph, placeholder=f"Enter {ph}", full_width=True)
+            for ph in placeholders
+        ]
 
     # Create an array of placeholder inputs
     placeholder_array = mo.ui.array(
@@ -135,6 +197,7 @@ def __(mo, re, selected_prompt, selected_prompt_name):
         proceed_button,
         vstack,
     )
+
 
 
 @app.cell
