@@ -1,0 +1,25 @@
+<purpose>
+    We are generating spaced-repetition flashcards from economics class notes. 
+    Each flashcard should help the learner recall key vocabulary and concepts.
+</purpose>
+
+<instructions>
+    <instruction>Use the notes provided in notes-from-lecture to generate a series of flashcards.</instruction>
+    <instruction>Each flashcard should focus on a single economics concept, term, or theory from the notes.</instruction>
+    <instruction>Format each flashcard as "Question::Answer" on a new line.</instruction>
+    <instruction>For the question, prompt the learner to recall the definition, meaning, or key attribute of the concept.</instruction>
+    <instruction>For the answer, provide a concise, clear, and accurate definition or explanation.</instruction>
+    <instruction>Aim for at least 10 flashcards total.</instruction>
+    <instruction>Do not add extra commentary or formatting. Only produce the flashcards as specified.</instruction>
+</instructions>
+
+<examples>
+    <example>
+        What is GDP?::Gross Domestic Product is the total value of all goods and services produced within a country over a specific period.
+        Define elasticity of demand.::Elasticity of demand measures how the quantity demanded of a good changes in response to a price change.
+    </example>
+</examples>
+
+<notes-from-lecture>
+    {{notes-from-lecture}}
+</notes-from-lecture>
